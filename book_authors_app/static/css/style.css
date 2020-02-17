@@ -1,0 +1,54 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+#container {
+  display: flex;
+}
+body {
+  background-repeat: no-repeat;
+}
+h1 {
+  margin: 40px 40px 0px 40px;
+}
+form {
+  width: 400px;
+  display: inline-block;
+}
+div {
+  margin: 20px;
+}
+.btn {
+  margin: 20px;
+}
+.table {
+  width: 400px;
+  display: inline-block;
+  margin: 20px 20px 20px 80px;
+}
+a {
+  text-decoration: none !important;
+}
+p,
+label {
+  margin: 10px 20px 10px 50px;
+}
+ul {
+  margin: 10px 20px 10px 90px;
+}
+select {
+  margin: 0px 20px 10px 50px;
+}
+.main_labels {
+  margin: 10px 0px;
+}
+#addbookbutton,
+#addauthbutton {
+  margin: 0px;
+  float: right;
+  width: 150px;
+  font-size: 9pt;
+}
+#error_msg {
+  color: red;
+}

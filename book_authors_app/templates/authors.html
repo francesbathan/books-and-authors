@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Books & Authors</title>
+    {% load static %}
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body style="background-image: url({% static 'img/author-bg2.jpg' %}">
+    <h1>Add an author</h1>
+    <div id="container">
+      <form action="/newauthor" method="POST" class="form-group">
+        {% csrf_token %}
+        <div>
+          <label for="" class="main_labels">First Name:</label>
+          <input type="text" name="author_first" class="form-control" />
+        </div>
+        <div>
+          <label for="" class="main_labels">Last Name:</label>
+          <input type="text" name="author_last" class="form-control" />
+        </div>
+        <div>
+          <label for="" class="main_labels">Notes:</label>
+          <textarea name="author_notes" class="form-control"></textarea>
+        </div>
+        {% for error in messages %}
+        <p id="error_msg">{{ error }}</p>
+        {% endfor %}
+        <button class="btn btn-success" type="Submit">Add</button>
+        <p>
+          <button class="btn btn-outline-info" id="addbookbutton">
+            <a href="/"> Add a book</a>
+          </button>
+        </p>
+        <!--have to connect this back to the add a book form-->
+      </form>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Info</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for author in authors %}
+          <tr>
+            <td>{{ author.id }}</td>
+            <td>{{ author.first_name }} {{ author.last_name }}</td>
+            <td><a href="/author_info/{{ author.id }}">View</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

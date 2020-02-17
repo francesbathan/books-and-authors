@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Books & Authors</title>
+    {% load static %}
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body style="background-image: url({% static 'img/book-bg.jpg' %}">
+    <h1>Add a book</h1>
+    <div id="container">
+      <form action="/newbook" method="POST" class="form-group">
+        {% csrf_token %}
+        <div>
+          <label for="" class="main_labels">Title:</label>
+          <input type="text" name="book_title" class="form-control" />
+        </div>
+        <div>
+          <label for="" class="main_labels">Description:</label>
+          <textarea name="book_desc" class="form-control"></textarea>
+        </div>
+        {% for error in messages %}
+        <p id="error_msg">{{ error }}</p>
+        {% endfor %}
+        <button class="btn btn-success" type="submit">Add</button>
+        <p>
+          <button class="btn btn-outline-info" id="addauthbutton">
+            <a href="/authors">Add an author</a>
+          </button>
+        </p>
+        <!--have to connect this to the author form-->
+      </form>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Info</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for book in books %}
+          <tr>
+            <td>{{ book.id }}</td>
+            <!--takes the ID of an existing book in the db-->
+            <td>{{ book.title }}</td>
+            <!--takes the title of the book-->
+            <td><a href="/books/{{ book.id }}">View</a></td>
+            <!--leads to the book's info-->
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
