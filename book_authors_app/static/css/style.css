@@ -52,3 +52,14 @@ select {
 #error_msg {
   color: red;
 }
+#backbookbtn,
+#backauthbtn {
+  display: inline-block;
+  width: 150px;
+  font-size: 9pt;
+  position: relative;
+}
+#homebtn {
+  position: absolute;
+  bottom: 0;
+}

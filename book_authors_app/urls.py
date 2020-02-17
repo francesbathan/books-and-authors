@@ -7,5 +7,7 @@ urlpatterns = [
     path('newauthor', views.newauthor), #process path for adding new author
     path('newbook', views.newbook), #process path for adding new book
     path('books/<int:id>', views.books), #book info
-    path('author_info/<int:id>', views.author_info) #author info
+    path('author_info/<int:id>', views.author_info), #author info
+    path('addauthortobook/<int:id>', views.addauthortobook),
+    path('addbooktoauthor/<int:id>', views.addbooktoauthor),
 ]

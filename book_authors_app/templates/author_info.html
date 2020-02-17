@@ -18,33 +18,39 @@
       <div>
         <h1>{{ author.first_name }} {{ author.last_name }}</h1>
         <!--author's info-->
-        <p>ID: {{ author.id}}</p>
+        <p>ID: {{ author.id }}</p>
         <label for="">Notes:</label>
         <p>{{ author.notes }}</p>
       </div>
       <div>
-        <!--FIX to show only the books written by author, not all books in the database-->
         <label for="">Books:</label>
         <!--list of "books" by author-->
         <ul>
-          {% for book in books %}
+          {% for book in author.books.all %}
           <li>{{ book.title }}</li>
-
           {% endfor %}
         </ul>
-        <!--need to fix-->
       </div>
       <div>
-        <select>
-          <!--FIX so choices will be added to the author's list when you click Add-->
-          <!--FIX so choices will only be limited to the books that the author is not associated with-->
-
-          <!--menu to add books in the author's list of books written-->
-          {% for book in books %}
-          <option>{{ book.title }}</option>
-          {% endfor %}
-        </select>
-        <button type="submit" class="btn btn-success">Add</button>
+        <!--menu to add books in the author's list of books written-->
+        <form action="/addbooktoauthor/{{ author.id }}" method="POST">
+          {% csrf_token %}
+          <select name="book_id">
+            <!--menu to add author in the list of who wrote the book-->
+            {% for book in books %}
+            <option value="{{ book.id }}">{{ book.title }}</option>
+            {% endfor %}
+          </select>
+          <button type="submit" class="btn btn-success">Add</button>
+        </form>
+      </div>
+      <div id="homebtn">
+        <button class="btn btn-outline-info" id="backbookbtn">
+          <a href="/">Back to Books</a>
+        </button>
+        <button class="btn btn-outline-info" id="backauthbtn">
+          <a href="/authors">Back to Authors</a>
+        </button>
       </div>
     </div>
   </body>

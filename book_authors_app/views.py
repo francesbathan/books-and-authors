@@ -35,15 +35,37 @@ def newauthor(request): #to process request to add an author on the author list 
     return redirect('/authors')
 
 def books(request, id): #book information page
+    other_authors = []
+    book = Book.objects.get(id=id)
+    for author in Author.objects.all():
+        if author not in book.authors.all():
+            other_authors.append(author)
     context = {
-        "book": Book.objects.get(id=id),
-        "authors": Author.objects.all() 
+        "authors": other_authors,
+        "book": book 
     }
     return render(request, 'book_info.html', context)
 
 def author_info(request, id): #author info page
+    other_books = []
+    author = Author.objects.get(id=id)
+    for book in Book.objects.all():
+        if book not in author.books.all():
+            other_books.append(book)
     context = { 
-        "author": Author.objects.get(id=id),
-        "books": Book.objects.all()
+        "books": other_books,
+        "author": author 
     }
     return render(request, 'author_info.html', context)
+
+def addauthortobook(request, id): # dropdown menu to add author to the book in book info's author list
+    book = Book.objects.get(id=id)
+    author = Author.objects.get(id=request.POST['author_id'])
+    book.authors.add(author)
+    return redirect(f'/books/{book.id}')
+
+def addbooktoauthor(request, id): # dropdown menu to add book to the author info's book list
+    author = Author.objects.get(id=id)
+    book = Book.objects.get(id=request.POST['book_id'])
+    author.books.add(book)
+    return redirect(f'/author_info/{author.id}')
